@@ -15,7 +15,7 @@ Including another URL conf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import home, about
+from travel.views import home, about
 
 urlpatterns = [
     path('admin/', admin.site.urls),

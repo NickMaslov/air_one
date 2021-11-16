@@ -1,5 +1,5 @@
 from django import forms
-from .models import City
+from cities.models import City
 
 
 class HtmlForm(forms.Form):

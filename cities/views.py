@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 
-from .forms import HtmlForm, CityForm
-from .models import City
+from cities.forms import HtmlForm, CityForm
+from cities.models import City
 
 __all__ = (
     'home',
@@ -80,6 +80,7 @@ class CityListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         form = CityForm()
+        print(City)
         context['form'] = form
         return context
 
