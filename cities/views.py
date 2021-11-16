@@ -33,7 +33,7 @@ def home(request, pk=None):
     #     return render(request, 'cities/detail.html', context)
     form = CityForm()
     cities = City.objects.all()
-    lst = Paginator(cities, 2)
+    lst = Paginator(cities, 5)
     page_number = request.GET.get('page')
     page_obj = lst.get_page(page_number)
     context = {'page_obj': page_obj, "form": form}
@@ -73,7 +73,7 @@ class CityDeleteView(SuccessMessageMixin, DeleteView):
 
 
 class CityListView(ListView):
-    paginate_by = 2
+    paginate_by = 5
     template_name = 'cities/home.html'
     model = City
 

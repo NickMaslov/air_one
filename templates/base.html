@@ -1,4 +1,7 @@
 {% url 'cities:home' as cities_home_url %}
+{% url 'cities:create' as cities_create_url %}
+{% url 'planes:home' as planes_home_url %}
+{% url 'planes:create' as planes_create_url %}
 
 <!doctype html>
 <html lang="en">
@@ -26,23 +29,26 @@
             <li class="nav-item {% if request.path == cities_home_url%} active {% endif %}">
                 <a class="nav-link" href="{% url 'cities:home' %}"> Cities <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+            <li class="nav-item {% if request.path == planes_home_url%} active {% endif %}">
+                <a class="nav-link" href="{% url 'planes:home' %}">Planes</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Pricing</a>
             </li>
-            <li class="nav-item dropdown">
+
+            <li class="nav-item dropdown
+            {% if request.path == cities_create_url or request.path == planes_create_url%} active {% endif %}"
+            >
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                    data-toggle="dropdown" aria-expanded="false">
-                    Dropdown link
+                    Add
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="{% url 'cities:create' %}">Add New City</a>
+                    <a class="dropdown-item" href="{% url 'planes:create' %}">Add New Plane</a>
                 </div>
             </li>
+
         </ul>
     </div>
 </nav>
