@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'cities',
     'planes',
     'routes',
+    'accounts',
 ]
 
 MIDDLEWARE = [

@@ -28,7 +28,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item {% if request.path == cities_home_url%} active {% endif %}">
                 <a class="nav-link" href="{% url 'cities:home' %}"> Cities <span class="sr-only">(current)</span></a>
             </li>
@@ -39,6 +39,7 @@
                 <a class="nav-link" href="{% url 'list' %}">Routes</a>
             </li>
 
+            {% if user.is_authenticated%}
             <li class="nav-item dropdown
             {% if request.path == cities_create_url or request.path == planes_create_url%} active {% endif %}"
             >
@@ -51,6 +52,19 @@
                     <a class="dropdown-item" href="{% url 'planes:create' %}">Add New Plane</a>
                 </div>
             </li>
+            {% else %}
+            <li class="nav-item" ><a href="" class="nav-link disabled">Add</a></li>
+            {% endif %}
+
+            {% if user.is_authenticated%}
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'accounts:logout'%}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'accounts:login'%}">Login</a>
+            </li>
+            {% endif %}
 
         </ul>
     </div>
@@ -114,5 +128,6 @@
         $('.js-example-basic-single').select2();
         $('.js-example-basic-multiple').select2();
     });
+
 </script>
 </body>

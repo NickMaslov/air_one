@@ -1,6 +1,9 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, DeleteView
 
 from cities.models import City
 from planes.models import Plane
@@ -9,10 +12,11 @@ from routes.models import Route
 from routes.utils import get_routes
 
 
-
+@login_required
 def home(request):
     form = RouteForm()
     return render(request, 'routes/home.html', {'form': form})
+
 
 def find_routes(request):
     if request.method == "POST":
@@ -29,6 +33,7 @@ def find_routes(request):
         form = RouteForm()
         messages.error(request, "No data for search")
         return render(request, 'routes/home.html', {'form': form})
+
 
 def add_route(request):
     if request.method == "POST":
@@ -50,7 +55,7 @@ def add_route(request):
                     'to_city': cities[to_city_id],
                     'travel_times': total_time,
                     'planes': qs
-                         }
+                }
             )
             context['form'] = form
         return render(request, 'routes/create.html', context)
@@ -82,3 +87,11 @@ class RouteDetailView(DetailView):
     queryset = Route.objects.all()
     template_name = 'routes/detail.html'
 
+
+class RouteDeleteView(LoginRequiredMixin, DeleteView):
+    model = Route
+    success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        messages.success(request, 'Route was deleted successfully')
+        return self.post(request, *args, **kwargs)
