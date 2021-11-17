@@ -31,7 +31,7 @@ SECRET_KEY = 'fi2@so-0lz05vmhn5u&$tz(w$%ikxhxsks976+r!4xut*iu&t5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["air--one.herokuapp.com"]
 
 # Application definition
 
