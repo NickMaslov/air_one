@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView
 
 from cities.models import City
 from planes.models import Plane
 from routes.forms import RouteForm, RouteModelForm
+from routes.models import Route
 from routes.utils import get_routes
 
 
@@ -68,3 +70,15 @@ def save_route(request):
     else:
         messages.error(request, "Impossible to save the route")
         return redirect('/')
+
+
+class RouteListView(ListView):
+    paginate_by = 10
+    model = Route
+    template_name = 'routes/list.html'
+
+
+class RouteDetailView(DetailView):
+    queryset = Route.objects.all()
+    template_name = 'routes/detail.html'
+
