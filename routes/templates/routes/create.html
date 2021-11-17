@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Create Plane{% endblock %}
+{% block title %}Create Route{% endblock %}
 {% block content %}
-<h1>Create Plane</h1>
+<h1>Create Route</h1>
 
-{% include 'form.html' with button='Save' %}
+{% url 'save_route' as action %}
+{% include 'form.html' with button='Save' action=action %}
 
 {% endblock %}
 

@@ -23,6 +23,7 @@ def get_graph(qs):
 
 def get_routes(request, form) -> dict:
     context = {'form': form}
+    # select_related joins related cities, preventing repeated calls to City
     qs = Plane.objects.all().select_related('from_city', 'to_city')
     graph = get_graph(qs)
     data = form.cleaned_data
