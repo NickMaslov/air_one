@@ -29,3 +29,30 @@ class UserLoginForm(forms.Form):
             if not user:
                 raise forms.ValidationError('Current user is not active')
         return super().clean(*args, **kwargs)
+
+
+class UserRegistrationForm(forms.ModelForm):
+    username = forms.CharField(label='username', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Enter username'
+    }))
+    password = forms.CharField(label='password', widget=forms.PasswordInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter password'
+    }))
+    password2 = forms.CharField(label='password', widget=forms.PasswordInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Repeat password'
+        }))
+
+    class Meta:
+        model = User
+        fields = ('username',)
+
+    def clean_password2(self):
+        data = self.cleaned_data
+        if data['password'] != data['password2']:
+            raise forms.ValidationError("Passwords don't match")
+        return data['password2']
